@@ -2,13 +2,16 @@ package hiber.dao;
 
 import hiber.model.User;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDaoImp implements UserDao {
 
    @Autowired
@@ -23,6 +26,16 @@ public class UserDaoImp implements UserDao {
    @SuppressWarnings("unchecked")
    public List<User> listUsers() {
       TypedQuery<User> query=sessionFactory.getCurrentSession().createQuery("from User");
+      return query.getResultList();
+   }
+
+   @Override
+   @SuppressWarnings("unchecked")
+   public List<User> getUserByModelAndSeries(String model, int series) {
+      TypedQuery<User> query=sessionFactory.getCurrentSession().
+              createQuery("from User as user WHERE user.car.model like :model and user.car.series like :series");
+      query.setParameter("model", model);
+      query.setParameter("series", series);
       return query.getResultList();
    }
 

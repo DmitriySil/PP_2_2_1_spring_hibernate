@@ -26,4 +26,9 @@ public class UserServiceImp implements UserService {
       return userDao.listUsers();
    }
 
+   //hql-запроса будет доставать юзера, владеющего машиной по ее модели и серии.
+   public List<User> getUserByModelAndSeries(String model, int series) {
+      return userDao.getUserByModelAndSeries(model,series);
+   }
+
 }
