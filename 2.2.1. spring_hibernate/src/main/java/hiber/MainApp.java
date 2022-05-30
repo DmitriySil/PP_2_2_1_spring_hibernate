@@ -31,10 +31,8 @@ public class MainApp {
          System.out.println();
       }
 
-      List<User> users1= userService.getUserByModelAndSeries("Vesta", 1223);
-      for (User user : users1) {
-         System.out.println(user.getFirstName());
-      }
+      User user= userService.getUserByModelAndSeries("Vesta", 1223);
+      System.out.println(user.getFirstName());
 
       context.close();
    }
